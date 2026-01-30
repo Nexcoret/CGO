@@ -312,11 +312,12 @@
                 };
 
                 const filteredTasks = computed(() => {
-                    return tasks.value.filter(t => 
+                    let filtered = tasks.value.filter(t => 
                         t.client.toLowerCase().includes(search.value.toLowerCase()) ||
                         t.requirement.toLowerCase().includes(search.value.toLowerCase()) ||
                         t.actionItem.toLowerCase().includes(search.value.toLowerCase())
                     );
+                    return filtered.sort((a, b) => new Date(b.meetingDate) - new Date(a.meetingDate));
                 });
 
                 const completedCount = computed(() => tasks.value.filter(t => t.status === 'Finalizado').length);
